@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+  <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style/style.css">
+  <title>BreakAway: CFL</title>
+</head>
+<body>
+  <!-- MAIN INTERFACE -->
+  <div id="app-container">
+    <div id="grid-container">
+      <div class="panel header" id="header">
+        <div style="display: flex; flex-direction: row;">
+          <img src="/img/spa_inc.png" alt="SPA Inc logo" id="img-logo">
+          <div style="width: 100%; padding-left: 32px; padding-top: 12px; font-size: 2.5vh; font-weight: bold;">BreakAway Time: CFL</div>
+        </div>
+        <div style="display: flex; flex-direction: row; width: 100%;">
+          <button class="button-1 head" id="head-export" style="height: 3vh;">Export Data</button>
+        </div>
+        </div>
+      <div class="panel" id="pnl-time">
+        <label class="txt-lbl" for="period" id="lbl-period">PERIOD:</label>
+        <p class="txt-1 period break" id="period">0</p>
+        <button class="button-1 break" id="break">BREAK</button>
+        <button class="button-1 kickoff" id="kick-off">KICK OFF</button>
+        <label class="txt-lbl" for="clock-main" id="lbl-clock-main">TIME:</label>
+        <p class="clock break" id="clock-main">00:00</p>
+      </div>
+      <div class="panel" id="pnl-metrics">
+        <div class="metric" id="met-one">
+          <div class="met-lbl" id="m1-lbl" contenteditable="true">Touchdown</div>
+          <div class="met-team" id="m1-h">HOME</div>
+          <div class="met-team" id="m1-a">AWAY</div>
+          <button class="met-btn pos" id="m1-pos-h">+</button>
+          <button class="met-btn neg" id="m1-neg-h">-</button>
+          <button class="met-btn pos" id="m1-pos-a">+</button>
+          <button class="met-btn neg" id="m1-neg-a">-</button>
+          <div class="met-val" id="m1-val-h">0</div>
+          <div class="met-val" id="m1-val-a">0</div>
+        </div>
+        <div class="metric" id="met-two">
+          <div class="met-lbl" id="m2-lbl" contenteditable="true">Field Goal</div>
+          <div class="met-team" id="m2-h">HOME</div>
+          <div class="met-team" id="m2-a">AWAY</div>
+          <button class="met-btn pos" id="m2-pos-h">+</button>
+          <button class="met-btn neg" id="m2-neg-h">-</button>
+          <button class="met-btn pos" id="m2-pos-a">+</button>
+          <button class="met-btn neg" id="m2-neg-a">-</button>
+          <div class="met-val" id="m2-val-h">0</div>
+          <div class="met-val" id="m2-val-a">0</div>
+        </div>
+        <div class="metric" id="met-three">
+          <div class="met-lbl" id="m3-lbl" contenteditable="true">Conversion</div>
+          <div class="met-team" id="m3-h">HOME</div>
+          <div class="met-team" id="m3-a">AWAY</div>
+          <button class="met-btn pos" id="m3-pos-h">+</button>
+          <button class="met-btn neg" id="m3-neg-h">-</button>
+          <button class="met-btn pos" id="m3-pos-a">+</button>
+          <button class="met-btn neg" id="m3-neg-a">-</button>
+          <div class="met-val" id="m3-val-h">0</div>
+          <div class="met-val" id="m3-val-a">0</div>
+        </div>
+      </div>
+      <div class="panel" id="pnl-match">
+        <p class="txt-1" id="home">HOME TEAM</p>
+        <p class="txt-1" id="away">AWAY TEAM</p>
+        <p class="txt-1" id="score-h">0</p>
+        <p class="txt-1" id="score-a">0</p>
+      </div>
+      <div class="panel" id="pnl-field">
+        <div class="player" id="play1">
+          <p class="jersey-no" id="no1">1.</p>
+          <p class="jersey-name" id="name1">Offensive Unit</p>
+          <p class="jersey-rot" id="rot1">0</p>
+          <p class="jersey-time" id="time1">00:00</p>
+          <p class="jersey-wr" id="wr1">1.00</p>
+          <p class="jersey-tp" id="tp1">00:00</p>
+          <p class="jersey-tr" id="tr1">00:00</p>
+          <button class="jersey topl" id="btn1"></button>
+        </div>
+        <div class="player" id="play2">
+          <p class="jersey-no" id="no2">2.</p>
+          <p class="jersey-name" id="name2">Defensive Unit</p>
+          <p class="jersey-rot" id="rot2">0</p>
+          <p class="jersey-time" id="time2">00:00</p>
+          <p class="jersey-wr" id="wr2">1.00</p>
+          <p class="jersey-tp" id="tp2">00:00</p>
+          <p class="jersey-tr" id="tr2">00:00</p>
+          <button class="jersey" id="btn2"></button>
+        </div>
+        <div class="player" id="play3">
+          <p class="jersey-no" id="no3">3.</p>
+          <p class="jersey-name" id="name3">Special Teams</p>
+          <p class="jersey-rot" id="rot3">0</p>
+          <p class="jersey-time" id="time3">00:00</p>
+          <p class="jersey-wr" id="wr3">1.00</p>
+          <p class="jersey-tp" id="tp3">00:00</p>
+          <p class="jersey-tr" id="tr3">00:00</p>
+          <button class="jersey" id="btn3"></button>
+        </div>
+      </div>
+      <div class="panel" id="pnl-analysis" style="height:fit-content; overflow-y:auto;">
+        <table class="tbl-data" id="tbl-anl">
+          <tr>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="scripts/main.js"></script>
+</html>
